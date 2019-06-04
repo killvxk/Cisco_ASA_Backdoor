@@ -1,0 +1,87 @@
+# depslib dependency file v1.0
+1504506175 source:c:\users\weizinan\desktop\backdoor\asa_backdoor_lp\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"protocol.h"
+	"control.h"
+	"commun.h"
+
+1493955497 c:\users\weizinan\desktop\backdoor\asa_backdoor_lp\protocol.h
+
+1504506134 source:c:\users\weizinan\desktop\backdoor\asa_backdoor_lp\commun.c
+	"commun.h"
+	"protocol.h"
+	"link_list.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<errno.h>
+
+1504506605 c:\users\weizinan\desktop\backdoor\asa_backdoor_lp\commun.h
+	<windows.h>
+	<winsock2.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+	<netdb.h>
+
+1493801836 c:\users\weizinan\desktop\backdoor\asa_backdoor_lp\control.h
+	"commun.h"
+
+1504504844 source:c:\users\weizinan\desktop\backdoor\asa_backdoor_lp\control.c
+	"control.h"
+	"protocol.h"
+	"commun.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<fcntl.h>
+
+1492760404 c:\users\weizinan\desktop\backdoor\asa_backdoor_lp\link_list.h
+
+1504506134 source:c:\users\weizinan\desktop\asa_backdoor\asa_backdoor_lp\commun.c
+	"commun.h"
+	"protocol.h"
+	"link_list.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<errno.h>
+
+1504838235 c:\users\weizinan\desktop\asa_backdoor\asa_backdoor_lp\commun.h
+	<windows.h>
+	<winsock2.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+	<netdb.h>
+
+1493955497 c:\users\weizinan\desktop\asa_backdoor\asa_backdoor_lp\protocol.h
+
+1492760404 c:\users\weizinan\desktop\asa_backdoor\asa_backdoor_lp\link_list.h
+
+1504782444 source:c:\users\weizinan\desktop\asa_backdoor\asa_backdoor_lp\control.c
+	"control.h"
+	"protocol.h"
+	"commun.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<fcntl.h>
+
+1493801836 c:\users\weizinan\desktop\asa_backdoor\asa_backdoor_lp\control.h
+	"commun.h"
+
+1504781054 source:c:\users\weizinan\desktop\asa_backdoor\asa_backdoor_lp\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"protocol.h"
+	"control.h"
+	"commun.h"
+

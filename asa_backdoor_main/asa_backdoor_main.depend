@@ -1,0 +1,92 @@
+# depslib dependency file v1.0
+1493696793 source:c:\users\weizinan\desktop\backdoor\asa_backdoor_main\main.c
+	<stdio.h>
+	<stdlib.h>
+	"asa_func.h"
+	"send.h"
+	"global.h"
+	"protocol.h"
+	"parse.h"
+	"control_interface.h"
+
+1493958359 source:c:\users\weizinan\desktop\backdoor\asa_backdoor_main\asa_func.c
+	"asa_func.h"
+
+1493978870 c:\users\weizinan\desktop\backdoor\asa_backdoor_main\asa_func.h
+
+1493692812 c:\users\weizinan\desktop\backdoor\asa_backdoor_main\send.h
+	<stdio.h>
+	<stdlib.h>
+
+1493972975 source:c:\users\weizinan\desktop\backdoor\asa_backdoor_main\send.c
+	"send.h"
+	"asa_func.h"
+	"global.h"
+	<windows.h>
+	<sys/socket.h>
+	<sys/types.h>
+	<netdb.h>
+	<arpa/inet.h>
+
+1493903603 source:c:\users\weizinan\desktop\backdoor\asa_backdoor_main\global.c
+	<stdio.h>
+	<stdlib.h>
+	"global.h"
+	"redir_flow.h"
+
+1493902400 c:\users\weizinan\desktop\backdoor\asa_backdoor_main\global.h
+	"protocol.h"
+	"link_list.h"
+	"send.h"
+	"redir_flow.h"
+
+1493954368 c:\users\weizinan\desktop\backdoor\asa_backdoor_main\redir_flow.h
+	"protocol.h"
+	"link_list.h"
+	"send.h"
+
+1493955497 c:\users\weizinan\desktop\backdoor\asa_backdoor_main\protocol.h
+
+1493033748 source:c:\users\weizinan\desktop\backdoor\asa_backdoor_main\link_list.c
+	<stdio.h>
+	<stdlib.h>
+	"link_list.h"
+	"asa_func.h"
+	"global.h"
+
+1492760404 c:\users\weizinan\desktop\backdoor\asa_backdoor_main\link_list.h
+
+1493954175 source:c:\users\weizinan\desktop\backdoor\asa_backdoor_main\redir_flow.c
+	<stdio.h>
+	<stdlib.h>
+	"redir_flow.h"
+	"asa_func.h"
+	"protocol.h"
+	"send.h"
+	"global.h"
+	"link_list.h"
+
+1493955216 source:c:\users\weizinan\desktop\backdoor\asa_backdoor_main\control_interface.c
+	"control_interface.h"
+	"global.h"
+	"asa_func.h"
+	"protocol.h"
+
+1493372627 c:\users\weizinan\desktop\backdoor\asa_backdoor_main\control_interface.h
+
+1493368675 c:\users\weizinan\desktop\backdoor\asa_backdoor_main\parse.h
+
+1493695862 source:c:\users\weizinan\desktop\backdoor\asa_backdoor_main\parse.c
+	"parse.h"
+	"asa_func.h"
+	"global.h"
+
+1493974931 source:c:\users\weizinan\desktop\backdoor\asa_backdoor_main\asa_func_804.c
+	"asa_func.h"
+
+1493972975 source:c:\users\weizinan\desktop\backdoor\asa_backdoor_main\asa_func_802.c
+	"asa_func.h"
+
+1493978544 source:c:\users\weizinan\desktop\backdoor\asa_backdoor_main\asa_func_805.c
+	"asa_func.h"
+

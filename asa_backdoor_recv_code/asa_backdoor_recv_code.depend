@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1491538965 source:c:\users\weizinan\desktop\backdoor\asa_backdoor_recv_code\main.c
+	<stdio.h>
+	<stdlib.h>
+
